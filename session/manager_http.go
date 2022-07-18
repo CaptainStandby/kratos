@@ -68,7 +68,7 @@ func (s *ManagerHTTP) ReIssueRefreshedCookie(ctx context.Context, w http.Respons
 	}
 
 	expiresAt := tryGetExpiresAt(cookie)
-	if expiresAt == nil || expiresAt.Before(session.ExpiresAt) {
+	if expiresAt != nil && expiresAt.Before(session.ExpiresAt) {
 		if err := s.IssueCookie(ctx, w, r, session); err != nil {
 			return err
 		}
